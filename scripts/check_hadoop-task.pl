@@ -4,7 +4,6 @@ use strict;
 use Socket;
 use FileHandle;
 
-
 my $node;
 my $warn_node;
 my $crit_node;
@@ -15,8 +14,6 @@ my $ST_OK=0;
 my $ST_WR=1;
 my $ST_CR=2;
 my $ST_UK=3;
-
-
 
 $host = $ARGV[0];
 $warn_node = $ARGV[1]; #TaskTrackerNodeがこの数以下ならWARNING
