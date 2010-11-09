@@ -2,7 +2,7 @@
 class hadoop-settings {
 	$path = '/etc/hadoop-0.20/conf.cluster'
 	file { $path:
-		source	=> 'puppet://host1.domain.com/hadoop/conf.cluster',
+		source	=> 'puppet://srv1.example.com/hadoop/conf.cluster',
 		recurse	=> true,
 	}
 }
@@ -10,7 +10,7 @@ class hadoop-settings {
 class hadoop-settings-restart {
 	$path = '/etc/hadoop-0.20/conf.cluster'
 	file { $path:
-		source	=> 'puppet://host1.domain.com/hadoop/conf.cluster',
+		source	=> 'puppet://srv1.example.com/hadoop/conf.cluster',
 		recurse	=> true,
 	}
 
@@ -27,12 +27,12 @@ class hadoop-settings-restart {
 class puppet-init {
 
 	file { '/etc/sysconfig/puppet':
-		source => 'puppet://host1.domain.com/files/puppet',
+		source => 'puppet://srv1.example.com/files/puppet',
 		replace => 'true'
 	}
 
 	file { '/etc/puppet/namespaceauth.conf':
-		source => 'puppet://host1.domain.com/files/namespaceauth.conf',
+		source => 'puppet://srv1.example.com/files/namespaceauth.conf',
 		replace => 'true'
 	}
 }
@@ -41,11 +41,11 @@ class hadoop-install {
 
 
 	file { '/etc/cron.daily/hadoop':
-		source => 'puppet://host1.domain.com/cron/hadoop',
+		source => 'puppet://srv1.example.com/cron/hadoop',
 	}	
 
 	file { '/etc/yum.repos.d/cloudera-cdh2.repo':
-		source	=> 'puppet://host1.domain.com/cdh2/cloudera-cdh2.repo',
+		source	=> 'puppet://srv1.example.com/cdh2/cloudera-cdh2.repo',
 	}
 
 	package { 'hadoop-0.20':
@@ -61,7 +61,7 @@ class hadoop-install {
 	}
 
 	file { '/etc/hadoop-0.20/conf.cluster':
-		source	=> 'puppet://host1.domain.com/hadoop/conf.cluster',
+		source	=> 'puppet://srv1.example.com/hadoop/conf.cluster',
 		recurse	=> true,
 		require => Package['hadoop-0.20']
 	}
@@ -85,11 +85,11 @@ class ganglia {
 	}
 
 	file { '/etc/init.d/gmond':
-		source => 'puppet://host1.domain.com/files/gmond',
+		source => 'puppet://srv1.example.com/files/gmond',
 	}
 
 	file { '/tmp/ganglia-3.1.7-1.i386.rpm':
-               source => 'puppet://host1.domain.com/files/ganglia-3.1.7-1.i386.rpm',
+               source => 'puppet://srv1.example.com/files/ganglia-3.1.7-1.i386.rpm',
 	}
 
 	exec { 'install ganglia':
@@ -99,7 +99,7 @@ class ganglia {
 	}
 
 	file { '/etc/ganglia/gmond.conf':
-		source => 'puppet://host1.domain.com/files/gmond.conf',
+		source => 'puppet://srv1.example.com/files/gmond.conf',
 		require => Exec['install ganglia']
 	}
 }
@@ -113,12 +113,12 @@ class install-all {
 # 通常運用は、'hadoop-settings-restart'
 # Hadoopのリ再起動をしない設定変更は、'hadoop-settings'
 # ノードの追加をする場合は、新しいホスト名を付けて、'install-all'
-node 'host2.domain.com' { include 'hadoop-settings-restart' }
-node 'host3.domain.com' { include 'hadoop-settings-restart' }
-node 'host4.domain.com' { include 'hadoop-settings-restart' }
-node 'host5.domain.com' { include 'hadoop-settings-restart' }
+node 'srv2.example.com' { include 'hadoop-settings-restart' }
+node 'srv3.example.com' { include 'hadoop-settings-restart' }
+node 'srv4.example.com' { include 'hadoop-settings-restart' }
+node 'srv5.example.com' { include 'hadoop-settings-restart' }
 
-node 'host6.domain.com' { include 'hadoop-settings' }
-node 'host7.domain.com' { include 'hadoop-settings' }
+node 'srv6.example.com' { include 'hadoop-settings' }
+node 'srv7.example.com' { include 'hadoop-settings' }
 
-#node 'host8.domain.com' { include install-all}
+#node 'srv8.example.com' { include install-all}

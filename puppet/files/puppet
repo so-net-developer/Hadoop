@@ -1,6 +1,6 @@
 # The puppetmaster server
 #PUPPET_SERVER=puppet
-PUPPET_SERVER=host1.domain.com
+PUPPET_SERVER=srv1.example.com
 
 # If you wish to specify the port to connect to do so here
 #PUPPET_PORT=8140
